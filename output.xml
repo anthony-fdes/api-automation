@@ -1,0 +1,749 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 3.2.1 (Python 3.7.9 on darwin)" generated="20200902 11:25:32.030" rpa="false">
+<suite id="s1" name="API Tests" source="/Users/anthony.f/PycharmProjects/APIAutomation/API_Tests.robot">
+<test id="s1-t1" name="Perform_GET_Path_Parameter">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>getsession</arg>
+<arg>${base_url}</arg>
+<arg>verify=True</arg>
+</arguments>
+<msg timestamp="20200902 11:25:32.114" level="INFO">Creating Session using : alias=getsession, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20200902 11:25:32.114" endtime="20200902 11:25:32.115"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>getsession</arg>
+<arg>/users/${employee_id}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.547" level="INFO">GET Request : url=https://jsonplaceholder.typicode.com/users/1 
+ path_url=/users/1 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200902 11:25:32.548" level="INFO">GET Response : url=https://jsonplaceholder.typicode.com/users/1 
+ status=200, reason=OK 
+ body={
+  "id": 1,
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "Sincere@april.biz",
+  "address": {
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "city": "Gwenborough",
+    "zipcode": "92998-3874",
+    "geo": {
+      "lat": "-37.3159",
+      "lng": "81.1496"
+    }
+  },
+  "phone": "1-770-736-8031 x56442",
+  "website": "hildegard.org",
+  "company": {
+    "name": "Romaguera-Crona",
+    "catchPhrase": "Multi-layered client-server neural-net",
+    "bs": "harness real-time e-markets"
+  }
+} 
+ </msg>
+<msg timestamp="20200902 11:25:32.548" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200902 11:25:32.115" endtime="20200902 11:25:32.548"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_code}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.549" level="INFO">${status_code} = 200</msg>
+<status status="PASS" starttime="20200902 11:25:32.548" endtime="20200902 11:25:32.549"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_code}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:32.549" endtime="20200902 11:25:32.550"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+</arguments>
+<assign>
+<var>${response_header}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.550" level="INFO">${response_header} = application/json; charset=utf-8</msg>
+<status status="PASS" starttime="20200902 11:25:32.550" endtime="20200902 11:25:32.550"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_header}</arg>
+<arg>application/json; charset=utf-8</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:32.551" endtime="20200902 11:25:32.551"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${response_body}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.552" level="INFO">${response_body} = {
+  "id": 1,
+  "name": "Leanne Graham",
+  "username": "Bret",
+  "email": "Sincere@april.biz",
+  "address": {
+    "street": "Kulas Light",
+    "suite": "Apt. 556",
+    "city": "Gwenborough",
+    "zipco...</msg>
+<status status="PASS" starttime="20200902 11:25:32.551" endtime="20200902 11:25:32.552"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response_body}</arg>
+<arg>Leanne Graham</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:32.552" endtime="20200902 11:25:32.552"></status>
+</kw>
+<doc>Testing first documentation</doc>
+<tags>
+<tag>timepass</tag>
+</tags>
+<status status="PASS" starttime="20200902 11:25:32.113" endtime="20200902 11:25:32.552" critical="no"></status>
+</test>
+<test id="s1-t2" name="Perform_GET_Query_Parameter">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>querysession</arg>
+<arg>${base_url}</arg>
+<arg>verify=True</arg>
+</arguments>
+<msg timestamp="20200902 11:25:32.554" level="INFO">Creating Session using : alias=querysession, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20200902 11:25:32.553" endtime="20200902 11:25:32.554"></status>
+</kw>
+<kw name="Get Request" library="RequestsLibrary">
+<doc>Send a GET request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>querysession</arg>
+<arg>/users?${query_key}=${query_value}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.970" level="INFO">GET Request : url=https://jsonplaceholder.typicode.com/users?website=kale.biz 
+ path_url=/users?website=kale.biz 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20200902 11:25:32.971" level="INFO">GET Response : url=https://jsonplaceholder.typicode.com/users?website=kale.biz 
+ status=200, reason=OK 
+ body=[
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+      "city": "South Elvis",
+      "zipcode": "53919-4257",
+      "geo": {
+        "lat": "29.4572",
+        "lng": "-164.2990"
+      }
+    },
+    "phone": "493-170-9623 x156",
+    "website": "kale.biz",
+    "company": {
+      "name": "Robel-Corkery",
+      "catchPhrase": "Multi-tiered zero tolerance productivity",
+      "bs": "transition cutting-edge web services"
+    }
+  }
+] 
+ </msg>
+<msg timestamp="20200902 11:25:32.971" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200902 11:25:32.554" endtime="20200902 11:25:32.971"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${status_code}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.972" level="INFO">${status_code} = 200</msg>
+<status status="PASS" starttime="20200902 11:25:32.971" endtime="20200902 11:25:32.972"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${status_code}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:32.972" endtime="20200902 11:25:32.972"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+</arguments>
+<assign>
+<var>${response_header}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.973" level="INFO">${response_header} = application/json; charset=utf-8</msg>
+<status status="PASS" starttime="20200902 11:25:32.973" endtime="20200902 11:25:32.973"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_header}</arg>
+<arg>application/json; charset=utf-8</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:32.973" endtime="20200902 11:25:32.974"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${response_body}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.974" level="INFO">${response_body} = [
+  {
+    "id": 4,
+    "name": "Patricia Lebsack",
+    "username": "Karianne",
+    "email": "Julianne.OConner@kory.org",
+    "address": {
+      "street": "Hoeger Mall",
+      "suite": "Apt. 692",
+    ...</msg>
+<status status="PASS" starttime="20200902 11:25:32.974" endtime="20200902 11:25:32.974"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response_body}</arg>
+<arg>Karianne</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:32.975" endtime="20200902 11:25:32.975"></status>
+</kw>
+<status status="PASS" starttime="20200902 11:25:32.553" endtime="20200902 11:25:32.975" critical="yes"></status>
+</test>
+<test id="s1-t3" name="Make_POST_Request">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>${base_url}</arg>
+<arg>verify=True</arg>
+</arguments>
+<msg timestamp="20200902 11:25:32.976" level="INFO">Creating Session using : alias=mysession, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20200902 11:25:32.976" endtime="20200902 11:25:32.977"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>id=11</arg>
+<arg>name=Anthony Fernandes</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.977" level="INFO">${data} = {'id': '11', 'name': 'Anthony Fernandes'}</msg>
+<status status="PASS" starttime="20200902 11:25:32.977" endtime="20200902 11:25:32.977"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Content-Type=application/json; charset=utf-8</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200902 11:25:32.978" level="INFO">${headers} = {'Content-Type': 'application/json; charset=utf-8'}</msg>
+<status status="PASS" starttime="20200902 11:25:32.978" endtime="20200902 11:25:32.978"></status>
+</kw>
+<kw name="Post Request" library="RequestsLibrary">
+<doc>Send a POST request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>mysession</arg>
+<arg>/users</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200902 11:25:35.954" level="INFO">POST Request : url=https://jsonplaceholder.typicode.com/users 
+ path_url=/users 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '41'} 
+ body={"id": "11", "name": "Anthony Fernandes"} 
+ </msg>
+<msg timestamp="20200902 11:25:35.954" level="INFO">POST Response : url=https://jsonplaceholder.typicode.com/users 
+ status=201, reason=Created 
+ body={
+  "id": 11,
+  "name": "Anthony Fernandes"
+} 
+ </msg>
+<msg timestamp="20200902 11:25:35.955" level="INFO">${response} = &lt;Response [201]&gt;</msg>
+<status status="PASS" starttime="20200902 11:25:32.978" endtime="20200902 11:25:35.955"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${response_status}</var>
+</assign>
+<msg timestamp="20200902 11:25:35.956" level="INFO">${response_status} = 201</msg>
+<status status="PASS" starttime="20200902 11:25:35.955" endtime="20200902 11:25:35.956"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_status}</arg>
+<arg>201</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:35.956" endtime="20200902 11:25:35.956"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${response_name}</var>
+</assign>
+<msg timestamp="20200902 11:25:35.957" level="INFO">${response_name} = {
+  "id": 11,
+  "name": "Anthony Fernandes"
+}</msg>
+<status status="PASS" starttime="20200902 11:25:35.956" endtime="20200902 11:25:35.957"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response_name}</arg>
+<arg>Anthony Fernandes</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:35.957" endtime="20200902 11:25:35.957"></status>
+</kw>
+<kw name="Get From Dictionary" library="Collections">
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<arguments>
+<arg>${response.headers}</arg>
+<arg>Content-Type</arg>
+</arguments>
+<assign>
+<var>${response_header}</var>
+</assign>
+<msg timestamp="20200902 11:25:35.958" level="INFO">${response_header} = application/json; charset=utf-8</msg>
+<status status="PASS" starttime="20200902 11:25:35.958" endtime="20200902 11:25:35.958"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_header}</arg>
+<arg>application/json; charset=utf-8</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:35.958" endtime="20200902 11:25:35.959"></status>
+</kw>
+<status status="PASS" starttime="20200902 11:25:32.975" endtime="20200902 11:25:35.959" critical="yes"></status>
+</test>
+<test id="s1-t4" name="Make_PUT_Request">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>putsession</arg>
+<arg>${base_url}</arg>
+<arg>verify=True</arg>
+</arguments>
+<msg timestamp="20200902 11:25:35.960" level="INFO">Creating Session using : alias=putsession, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20200902 11:25:35.960" endtime="20200902 11:25:35.960"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=Tony Starks</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200902 11:25:35.961" level="INFO">${data} = {'name': 'Tony Starks'}</msg>
+<status status="PASS" starttime="20200902 11:25:35.961" endtime="20200902 11:25:35.961"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Contet-Type=application/json; charset=utf-8</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200902 11:25:35.961" level="INFO">${headers} = {'Contet-Type': 'application/json; charset=utf-8'}</msg>
+<status status="PASS" starttime="20200902 11:25:35.961" endtime="20200902 11:25:35.961"></status>
+</kw>
+<kw name="Put Request" library="RequestsLibrary">
+<doc>Send a PUT request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>putsession</arg>
+<arg>/users/2</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200902 11:25:36.642" level="INFO">PUT Request : url=https://jsonplaceholder.typicode.com/users/2 
+ path_url=/users/2 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Contet-Type': 'application/json; charset=utf-8', 'Content-Length': '16'} 
+ body=name=Tony+Starks 
+ </msg>
+<msg timestamp="20200902 11:25:36.643" level="INFO">PUT Response : url=https://jsonplaceholder.typicode.com/users/2 
+ status=200, reason=OK 
+ body={
+  "id": 2
+} 
+ </msg>
+<msg timestamp="20200902 11:25:36.643" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200902 11:25:35.962" endtime="20200902 11:25:36.643"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${response_status}</var>
+</assign>
+<msg timestamp="20200902 11:25:36.644" level="INFO">${response_status} = 200</msg>
+<status status="PASS" starttime="20200902 11:25:36.643" endtime="20200902 11:25:36.644"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_status}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:36.644" endtime="20200902 11:25:36.645"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${response_name}</var>
+</assign>
+<msg timestamp="20200902 11:25:36.645" level="INFO">${response_name} = {
+  "id": 2
+}</msg>
+<status status="PASS" starttime="20200902 11:25:36.645" endtime="20200902 11:25:36.645"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response_name}</arg>
+<arg>2</arg>
+<arg>Tony Stark</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:36.645" endtime="20200902 11:25:36.646"></status>
+</kw>
+<status status="PASS" starttime="20200902 11:25:35.959" endtime="20200902 11:25:36.646" critical="yes"></status>
+</test>
+<test id="s1-t5" name="Make_DELETE_Request">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>delsession</arg>
+<arg>${base_url}</arg>
+<arg>verify=True</arg>
+</arguments>
+<msg timestamp="20200902 11:25:36.647" level="INFO">Creating Session using : alias=delsession, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20200902 11:25:36.647" endtime="20200902 11:25:36.648"></status>
+</kw>
+<kw name="Delete Request" library="RequestsLibrary">
+<doc>Send a DELETE request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>delsession</arg>
+<arg>/users/6</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200902 11:25:37.377" level="INFO">DELETE Request : url=https://jsonplaceholder.typicode.com/users/6 
+ path_url=/users/6 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
+ body=None 
+ </msg>
+<msg timestamp="20200902 11:25:37.377" level="INFO">DELETE Response : url=https://jsonplaceholder.typicode.com/users/6 
+ status=200, reason=OK 
+ body={} 
+ </msg>
+<msg timestamp="20200902 11:25:37.377" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200902 11:25:36.648" endtime="20200902 11:25:37.377"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${response_status}</var>
+</assign>
+<msg timestamp="20200902 11:25:37.378" level="INFO">${response_status} = 200</msg>
+<status status="PASS" starttime="20200902 11:25:37.377" endtime="20200902 11:25:37.378"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_status}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:37.378" endtime="20200902 11:25:37.379"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${response_content}</var>
+</assign>
+<msg timestamp="20200902 11:25:37.379" level="INFO">${response_content} = {}</msg>
+<status status="PASS" starttime="20200902 11:25:37.379" endtime="20200902 11:25:37.379"></status>
+</kw>
+<kw name="Length Should Be" library="BuiltIn">
+<doc>Verifies that the length of the given item is correct.</doc>
+<arguments>
+<arg>${response_content}</arg>
+<arg>2</arg>
+</arguments>
+<msg timestamp="20200902 11:25:37.380" level="INFO">Length is 2</msg>
+<status status="PASS" starttime="20200902 11:25:37.380" endtime="20200902 11:25:37.380"></status>
+</kw>
+<status status="PASS" starttime="20200902 11:25:36.646" endtime="20200902 11:25:37.380" critical="yes"></status>
+</test>
+<test id="s1-t6" name="Make_PATCH_Request">
+<kw name="Create Session" library="RequestsLibrary">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>patchsession</arg>
+<arg>${base_url}</arg>
+<arg>verify=True</arg>
+</arguments>
+<msg timestamp="20200902 11:25:37.382" level="INFO">Creating Session using : alias=patchsession, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=True,                     debug=0 </msg>
+<status status="PASS" starttime="20200902 11:25:37.381" endtime="20200902 11:25:37.382"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>name=Endurance International</arg>
+</arguments>
+<assign>
+<var>${data}</var>
+</assign>
+<msg timestamp="20200902 11:25:37.383" level="INFO">${data} = {'name': 'Endurance International'}</msg>
+<status status="PASS" starttime="20200902 11:25:37.382" endtime="20200902 11:25:37.383"></status>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<arguments>
+<arg>Contet-Type=application/json; charset=utf-8</arg>
+</arguments>
+<assign>
+<var>${headers}</var>
+</assign>
+<msg timestamp="20200902 11:25:37.383" level="INFO">${headers} = {'Contet-Type': 'application/json; charset=utf-8'}</msg>
+<status status="PASS" starttime="20200902 11:25:37.383" endtime="20200902 11:25:37.383"></status>
+</kw>
+<kw name="Patch Request" library="RequestsLibrary">
+<doc>Send a PATCH request on the session object found using the
+given `alias`</doc>
+<arguments>
+<arg>patchsession</arg>
+<arg>/users/4</arg>
+<arg>data=${data}</arg>
+<arg>headers=${headers}</arg>
+</arguments>
+<assign>
+<var>${response}</var>
+</assign>
+<msg timestamp="20200902 11:25:38.094" level="INFO">PATCH Request : url=https://jsonplaceholder.typicode.com/users/4 
+ path_url=/users/4 
+ headers={'User-Agent': 'python-requests/2.24.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Contet-Type': 'application/json; charset=utf-8', 'Content-Length': '28'} 
+ body=name=Endurance+International 
+ </msg>
+<msg timestamp="20200902 11:25:38.094" level="INFO">PATCH Response : url=https://jsonplaceholder.typicode.com/users/4 
+ status=200, reason=OK 
+ body={
+  "id": 4,
+  "name": "Patricia Lebsack",
+  "username": "Karianne",
+  "email": "Julianne.OConner@kory.org",
+  "address": {
+    "street": "Hoeger Mall",
+    "suite": "Apt. 692",
+    "city": "South Elvis",
+    "zipcode": "53919-4257",
+    "geo": {
+      "lat": "29.4572",
+      "lng": "-164.2990"
+    }
+  },
+  "phone": "493-170-9623 x156",
+  "website": "kale.biz",
+  "company": {
+    "name": "Robel-Corkery",
+    "catchPhrase": "Multi-tiered zero tolerance productivity",
+    "bs": "transition cutting-edge web services"
+  }
+} 
+ </msg>
+<msg timestamp="20200902 11:25:38.094" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20200902 11:25:37.383" endtime="20200902 11:25:38.094"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.status_code}</arg>
+</arguments>
+<assign>
+<var>${response_status}</var>
+</assign>
+<msg timestamp="20200902 11:25:38.095" level="INFO">${response_status} = 200</msg>
+<status status="PASS" starttime="20200902 11:25:38.095" endtime="20200902 11:25:38.095"></status>
+</kw>
+<kw name="Should Be Equal" library="BuiltIn">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${response_status}</arg>
+<arg>200</arg>
+</arguments>
+<status status="PASS" starttime="20200902 11:25:38.096" endtime="20200902 11:25:38.096"></status>
+</kw>
+<kw name="Convert To String" library="BuiltIn">
+<doc>Converts the given item to a Unicode string.</doc>
+<arguments>
+<arg>${response.content}</arg>
+</arguments>
+<assign>
+<var>${response_name}</var>
+</assign>
+<msg timestamp="20200902 11:25:38.097" level="INFO">${response_name} = {
+  "id": 4,
+  "name": "Patricia Lebsack",
+  "username": "Karianne",
+  "email": "Julianne.OConner@kory.org",
+  "address": {
+    "street": "Hoeger Mall",
+    "suite": "Apt. 692",
+    "city": "South Elv...</msg>
+<status status="PASS" starttime="20200902 11:25:38.096" endtime="20200902 11:25:38.097"></status>
+</kw>
+<kw name="Should Contain" library="BuiltIn">
+<doc>Fails if ``container`` does not contain ``item`` one or more times.</doc>
+<arguments>
+<arg>${response_name}</arg>
+<arg>40</arg>
+</arguments>
+<msg timestamp="20200902 11:25:38.097" level="FAIL">'{
+  "id": 4,
+  "name": "Patricia Lebsack",
+  "username": "Karianne",
+  "email": "Julianne.OConner@kory.org",
+  "address": {
+    "street": "Hoeger Mall",
+    "suite": "Apt. 692",
+    "city": "South Elvis",
+    "zipcode": "53919-4257",
+    "geo": {
+      "lat": "29.4572",
+      "lng": "-164.2990"
+    }
+  },
+  "phone": "493-170-9623 x156",
+  "website": "kale.biz",
+  "company": {
+    "name": "Robel-Corkery",
+    "catchPhrase": "Multi-tiered zero tolerance productivity",
+    "bs": "transition cutting-edge web services"
+  }
+}' does not contain '40'</msg>
+<status status="FAIL" starttime="20200902 11:25:38.097" endtime="20200902 11:25:38.097"></status>
+</kw>
+<tags>
+<tag>timepass</tag>
+</tags>
+<status status="FAIL" starttime="20200902 11:25:37.381" endtime="20200902 11:25:38.098" critical="no">'{
+  "id": 4,
+  "name": "Patricia Lebsack",
+  "username": "Karianne",
+  "email": "Julianne.OConner@kory.org",
+  "address": {
+    "street": "Hoeger Mall",
+    "suite": "Apt. 692",
+    "city": "South Elvis",
+    "zipcode": "53919-4257",
+    "geo": {
+      "lat": "29.4572",
+      "lng": "-164.2990"
+    }
+  },
+  "phone": "493-170-9623 x156",
+  "website": "kale.biz",
+  "company": {
+    "name": "Robel-Corkery",
+    "catchPhrase": "Multi-tiered zero tolerance productivity",
+    "bs": "transition cutting-edge web services"
+  }
+}' does not contain '40'</status>
+</test>
+<status status="PASS" starttime="20200902 11:25:32.031" endtime="20200902 11:25:38.099"></status>
+</suite>
+<statistics>
+<total>
+<stat pass="4" fail="0">Critical Tests</stat>
+<stat pass="5" fail="1">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="1" info="non-critical">timepass</stat>
+</tag>
+<suite>
+<stat pass="5" fail="1" id="s1" name="API Tests">API Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
